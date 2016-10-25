@@ -79,6 +79,11 @@ public class NettyTCPNetworkModule<T extends NetworkMessage> implements NetworkM
     protected NettyChannelInitializer nettyChannelInitializer = null;
 
     /**
+    * instance of message receiver
+    */
+    protected MessageReceiver<T> messageReceiver = null;
+
+    /**
     * default constructor
      *
      * @param channelOptions channel options
@@ -174,6 +179,11 @@ public class NettyTCPNetworkModule<T extends NetworkMessage> implements NetworkM
     }
 
     @Override
+    public MessageReceiver<T> getNetworkReceiver() {
+        return this.messageReceiver;
+    }
+
+    @Override
     public void setConnectionListener(ConnectionListener listener) {
         this.connListener = listener;
     }
@@ -189,8 +199,8 @@ public class NettyTCPNetworkModule<T extends NetworkMessage> implements NetworkM
     }
 
     @Override
-    public void setNetworkReceiver(MessageReceiver receiver) {
-
+    public void setMessageReceiver(MessageReceiver receiver) {
+        this.messageReceiver = receiver;
     }
 
     /**

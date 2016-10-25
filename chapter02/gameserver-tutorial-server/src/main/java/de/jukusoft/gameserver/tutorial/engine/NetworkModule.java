@@ -53,7 +53,14 @@ public interface NetworkModule<T extends NetworkMessage> {
     /**
     * set network receiver
     */
-    public void setNetworkReceiver (MessageReceiver<T> receiver);
+    public void setMessageReceiver (MessageReceiver<T> receiver);
+
+    /**
+    * get message receiver
+     *
+     * @return instance of message receiver
+    */
+    public MessageReceiver<T> getNetworkReceiver ();
 
     /**
     * set connection listener

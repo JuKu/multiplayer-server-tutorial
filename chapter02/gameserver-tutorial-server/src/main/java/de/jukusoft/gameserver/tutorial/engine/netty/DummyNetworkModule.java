@@ -45,8 +45,13 @@ public class DummyNetworkModule<T extends NetworkMessage> implements NetworkModu
     }
 
     @Override
-    public void setNetworkReceiver(MessageReceiver<T> receiver) {
+    public void setMessageReceiver(MessageReceiver<T> receiver) {
 
+    }
+
+    @Override
+    public MessageReceiver<T> getNetworkReceiver() {
+        return null;
     }
 
     @Override
