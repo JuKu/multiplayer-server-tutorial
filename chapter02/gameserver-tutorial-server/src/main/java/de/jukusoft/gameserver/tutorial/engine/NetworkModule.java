@@ -1,5 +1,6 @@
 package de.jukusoft.gameserver.tutorial.engine;
 
+import de.jukusoft.gameserver.tutorial.engine.config.ServerConfig;
 import de.jukusoft.gameserver.tutorial.engine.protocol.MessageReceiver;
 import de.jukusoft.gameserver.tutorial.engine.protocol.NetworkMessage;
 
@@ -11,9 +12,9 @@ public interface NetworkModule<T extends NetworkMessage> {
     /**
     * configure network module
      *
-     * @param server instance of game server to get configuration
+     * @param config instance of server configuration
     */
-    public void configure (IGameServer server);
+    public void configure (ServerConfig config);
 
     /**
     * start network module

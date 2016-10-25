@@ -1,8 +1,8 @@
 package de.jukusoft.gameserver.tutorial.engine.impl;
 
-import de.jukusoft.gameserver.tutorial.common.GameConstants;
 import de.jukusoft.gameserver.tutorial.engine.IGameServer;
 import de.jukusoft.gameserver.tutorial.engine.NetworkModule;
+import de.jukusoft.gameserver.tutorial.engine.config.ServerConfig;
 import de.jukusoft.gameserver.tutorial.engine.listener.ConnectionListener;
 import de.jukusoft.gameserver.tutorial.engine.protocol.NetworkMessage;
 import org.apache.log4j.Level;
@@ -22,20 +22,14 @@ public class GameServerImpl<T extends NetworkMessage> implements IGameServer<T> 
     protected ScheduledExecutorService executorService = null;
 
     /**
-    * port in which server socket will bind
-    */
-    protected int port = GameConstants.DEFAULT_PORT;
-
-    /**
     * flag, if server is already running
     */
     protected AtomicBoolean isRunning = new AtomicBoolean(false);
 
     /**
-    * number of threads in thread pool, per default 2
+    * instance of server configuration
     */
-    protected int nOfBossThreads = 2;
-    protected int nOfWorkerThreads = 2;
+    protected ServerConfig config = new ServerConfig();
 
     /**
     * instance of network module
@@ -73,7 +67,12 @@ public class GameServerImpl<T extends NetworkMessage> implements IGameServer<T> 
         }
 
         //set port
-        this.port = port;
+        this.config.setPort(port);
+    }
+
+    @Override
+    public int getPort() {
+        return this.config.getPort();
     }
 
     @Override
@@ -84,7 +83,7 @@ public class GameServerImpl<T extends NetworkMessage> implements IGameServer<T> 
             throw new IllegalStateException("You cannot set port number, if server is already running.");
         }
 
-        this.nOfBossThreads = nOfBossThreads;
+        this.config.setBossThreads(nOfBossThreads);
     }
 
     @Override
@@ -95,7 +94,7 @@ public class GameServerImpl<T extends NetworkMessage> implements IGameServer<T> 
             throw new IllegalStateException("You cannot set port number, if server is already running.");
         }
 
-        this.nOfWorkerThreads = nOfWorkerThreads;
+        this.config.setWorkerThreads(nOfWorkerThreads);
     }
 
     @Override
@@ -162,7 +161,7 @@ public class GameServerImpl<T extends NetworkMessage> implements IGameServer<T> 
         this.logger.info("configure network module now.");
 
         //configure network module
-        this.networkModule.configure(this);
+        this.networkModule.configure(this.config);
 
         this.logger.info("start game server...");
 

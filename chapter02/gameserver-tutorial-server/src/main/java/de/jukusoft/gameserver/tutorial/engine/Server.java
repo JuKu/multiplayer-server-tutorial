@@ -17,6 +17,13 @@ public interface Server<T extends NetworkMessage> {
     public void setPort (int port);
 
     /**
+    * get server port
+     *
+     * @return server port
+    */
+    public int getPort ();
+
+    /**
     * set number of boss threads
      *
      * @param nOfBossThreads number of boss threads

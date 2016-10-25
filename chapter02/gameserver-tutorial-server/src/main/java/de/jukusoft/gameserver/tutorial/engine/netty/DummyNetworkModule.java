@@ -2,6 +2,7 @@ package de.jukusoft.gameserver.tutorial.engine.netty;
 
 import de.jukusoft.gameserver.tutorial.engine.IGameServer;
 import de.jukusoft.gameserver.tutorial.engine.NetworkModule;
+import de.jukusoft.gameserver.tutorial.engine.Server;
 import de.jukusoft.gameserver.tutorial.engine.config.ServerConfig;
 import de.jukusoft.gameserver.tutorial.engine.protocol.MessageReceiver;
 import de.jukusoft.gameserver.tutorial.engine.protocol.NetworkMessage;
@@ -9,7 +10,7 @@ import de.jukusoft.gameserver.tutorial.engine.protocol.NetworkMessage;
 /**
  * Created by Justin on 25.10.2016.
  */
-public class NettyTCPNetworkModule<T extends NetworkMessage> implements NetworkModule {
+public class DummyNetworkModule<T extends NetworkMessage> implements NetworkModule<T> {
 
     @Override
     public void configure(ServerConfig config) {
@@ -27,17 +28,17 @@ public class NettyTCPNetworkModule<T extends NetworkMessage> implements NetworkM
     }
 
     @Override
-    public void send(long clientID, NetworkMessage msg) {
+    public void send(long clientID, T msg) {
 
     }
 
     @Override
-    public void broadcast(NetworkMessage msg) {
+    public void broadcast(T msg) {
 
     }
 
     @Override
-    public void setNetworkReceiver(MessageReceiver receiver) {
+    public void setNetworkReceiver(MessageReceiver<T> receiver) {
 
     }
 

@@ -27,7 +27,20 @@
 
         <!-- ini4j to easy parse configuration files -->
         <ini4j.version>0.5.4</ini4j.version>
+
+        <!-- JUnit test -->
+        <junit.version>4.12</junit.version>
     </properties>
+
+    <dependencies>
+        <!-- JUnit tests -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>

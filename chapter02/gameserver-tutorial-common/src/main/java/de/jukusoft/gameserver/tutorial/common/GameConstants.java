@@ -12,4 +12,14 @@ public class GameConstants {
     */
     public static final int DEFAULT_PORT = 1234;
 
+    /**
+    * default number of boss threads
+    */
+    public static final int DEFAULT_BOSS_THREADS = 2;
+
+    /**
+     * default number of worker threads
+     */
+    public static final int DEFAULT_WORKER_THREADS = 2;
+
 }
