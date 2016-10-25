@@ -30,6 +30,13 @@
             <version>${log4j.version}</version>
         </dependency>
 
+        <!-- ini4j -->
+        <dependency>
+            <groupId>org.ini4j</groupId>
+            <artifactId>ini4j</artifactId>
+            <version>${ini4j.version}</version>
+        </dependency>
+
         <!-- netty -->
         <dependency>
             <groupId>io.netty</groupId>
