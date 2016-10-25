@@ -2,6 +2,7 @@ package de.jukusoft.gameserver.tutorial;
 
 import de.jukusoft.gameserver.tutorial.engine.impl.GameServerImpl;
 import de.jukusoft.gameserver.tutorial.engine.IGameServer;
+import de.jukusoft.gameserver.tutorial.engine.netty.NettyTCPNetworkModule;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
@@ -22,6 +23,9 @@ public class ServerMain {
         server.setPort(1234);
         server.setBossThreads(2);
         server.setWorkerThreads(2);
+
+        //because we have some abstraction, we have to set an network module, in this case we will use netty with TCP
+        server.setNetworkModule(new NettyTCPNetworkModule());
 
         try {
             //start game server

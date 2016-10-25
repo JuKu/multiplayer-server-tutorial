@@ -8,7 +8,7 @@ import de.jukusoft.gameserver.tutorial.engine.protocol.NetworkMessage;
 /**
  * Created by Justin on 25.10.2016.
  */
-public class NettyNetworkModule<T extends NetworkMessage> implements NetworkModule {
+public class NettyTCPNetworkModule<T extends NetworkMessage> implements NetworkModule {
 
     @Override
     public void configure(IGameServer server) {

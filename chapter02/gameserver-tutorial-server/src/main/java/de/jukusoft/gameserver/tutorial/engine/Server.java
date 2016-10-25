@@ -1,5 +1,6 @@
 package de.jukusoft.gameserver.tutorial.engine;
 
+import de.jukusoft.gameserver.tutorial.engine.listener.ConnectionListener;
 import de.jukusoft.gameserver.tutorial.engine.protocol.NetworkMessage;
 import org.apache.log4j.Logger;
 
@@ -38,8 +39,17 @@ public interface Server<T extends NetworkMessage> {
 
     /**
     * get instance of logger
+     *
+     * @return instance of logger
     */
     public Logger getLogger ();
+
+    /**
+    * set connection listener
+     *
+     * @param listener instance of connection listener
+    */
+    public void setConnectionListener (ConnectionListener listener);
 
     /**
     * set network module

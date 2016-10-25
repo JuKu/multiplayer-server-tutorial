@@ -3,7 +3,9 @@ package de.jukusoft.gameserver.tutorial.engine.impl;
 import de.jukusoft.gameserver.tutorial.common.GameConstants;
 import de.jukusoft.gameserver.tutorial.engine.IGameServer;
 import de.jukusoft.gameserver.tutorial.engine.NetworkModule;
+import de.jukusoft.gameserver.tutorial.engine.listener.ConnectionListener;
 import de.jukusoft.gameserver.tutorial.engine.protocol.NetworkMessage;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import java.util.concurrent.ScheduledExecutorService;
@@ -44,6 +46,11 @@ public class GameServerImpl<T extends NetworkMessage> implements IGameServer<T> 
     * instance of logger
     */
     protected Logger logger = Logger.getRootLogger();
+
+    /**
+    * instance of connection listener
+    */
+    protected ConnectionListener connListener = null;
 
     /**
     * default constructor
@@ -92,6 +99,30 @@ public class GameServerImpl<T extends NetworkMessage> implements IGameServer<T> 
     }
 
     @Override
+    public void setLogger(Logger logger) {
+        //check, if logger is null
+        if (logger == null) {
+            //dont log anything
+            this.logger = Logger.getLogger("zerologger");
+            this.logger.setLevel(Level.OFF);
+
+            return;
+        }
+
+        this.logger = logger;
+    }
+
+    @Override
+    public Logger getLogger() {
+        return this.logger;
+    }
+
+    @Override
+    public void setConnectionListener(ConnectionListener listener) {
+        this.connListener = listener;
+    }
+
+    @Override
     public void setNetworkModule(NetworkModule<T> networkModule) {
         //check, if server is already running
         if (this.isRunning.get()) {
@@ -116,6 +147,8 @@ public class GameServerImpl<T extends NetworkMessage> implements IGameServer<T> 
 
     @Override
     public void start() throws Exception {
+        this.logger.info("try to start game server now.");
+
         //check, if server is already running
         if (this.isRunning.get()) {
             throw new IllegalStateException("server is already running.");
@@ -126,11 +159,17 @@ public class GameServerImpl<T extends NetworkMessage> implements IGameServer<T> 
             throw new NullPointerException("network module is null, set network module with method setNetworkModule() first.");
         }
 
+        this.logger.info("configure network module now.");
+
         //configure network module
         this.networkModule.configure(this);
 
+        this.logger.info("start game server...");
+
         //start network module
         this.networkModule.start();
+
+        this.logger.info("game server started successfully!");
 
         this.isRunning.set(true);
     }
