@@ -3,6 +3,11 @@ package de.jukusoft.gameserver.tutorial;
 import de.jukusoft.gameserver.tutorial.engine.impl.GameServerImpl;
 import de.jukusoft.gameserver.tutorial.engine.IGameServer;
 import de.jukusoft.gameserver.tutorial.engine.netty.NettyTCPNetworkModule;
+import de.jukusoft.gameserver.tutorial.engine.protocol.NetworkMessage;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelPipeline;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -28,7 +33,21 @@ public class ServerMain {
         server.setWorkerThreads(2);
 
         //because we have some abstraction, we have to set an network module, in this case we will use netty with TCP
-        server.setNetworkModule(new NettyTCPNetworkModule());
+        NettyTCPNetworkModule<NetworkMessage> networkModule = new NettyTCPNetworkModule<>();
+
+        //set channel initializer
+        networkModule.setNettyChannelInitializer((final long clientID, ChannelHandlerContext ctx, ChannelPipeline
+        pipeline) -> {
+            //create new logging handler
+            LoggingHandler loggingHandler = new LoggingHandler("Game Server", LogLevel.INFO);
+
+            //add logging handler to pipeline
+            pipeline.addLast("logger", loggingHandler);
+
+            //TODO: add coded
+        });
+
+        server.setNetworkModule(networkModule);
 
         try {
             //start game server
