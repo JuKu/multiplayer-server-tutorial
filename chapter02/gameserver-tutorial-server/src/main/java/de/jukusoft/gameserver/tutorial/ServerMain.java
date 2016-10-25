@@ -44,7 +44,7 @@ public class ServerMain {
             //add logging handler to pipeline
             pipeline.addLast("logger", loggingHandler);
 
-            //TODO: add coded
+            //TODO: add codec
         });
 
         server.setNetworkModule(networkModule);
