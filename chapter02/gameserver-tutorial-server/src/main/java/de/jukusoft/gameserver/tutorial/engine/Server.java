@@ -1,9 +1,12 @@
 package de.jukusoft.gameserver.tutorial.engine;
 
+import de.jukusoft.gameserver.tutorial.engine.protocol.NetworkMessage;
+import org.apache.log4j.Logger;
+
 /**
  * Created by Justin on 25.10.2016.
  */
-public interface Server {
+public interface Server<T extends NetworkMessage> {
 
     /**
     * set port, on which server should bind
@@ -25,6 +28,25 @@ public interface Server {
      * @param nOfWorkerThreads number of worker threads
     */
     public void setWorkerThreads (int nOfWorkerThreads);
+
+    /**
+    * set instance of logger
+     *
+     * @param logger instance of logger
+    */
+    public void setLogger (Logger logger);
+
+    /**
+    * get instance of logger
+    */
+    public Logger getLogger ();
+
+    /**
+    * set network module
+     *
+     * @param networkModule instance of network module
+    */
+    public void setNetworkModule (NetworkModule<T> networkModule);
 
     /**
     * checks, if server is running

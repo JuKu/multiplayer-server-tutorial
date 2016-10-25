@@ -1,11 +1,13 @@
 package de.jukusoft.gameserver.tutorial.engine;
 
+import de.jukusoft.gameserver.tutorial.engine.protocol.NetworkMessage;
+
 /**
  * interface for game servers
  *
  * Created by Justin on 25.10.2016.
  */
-public interface IGameServer extends Server {
+public interface IGameServer<T extends NetworkMessage> extends Server<T> {
 
     /**
     * add an task which should be executed in specific interval
