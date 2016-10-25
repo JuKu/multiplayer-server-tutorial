@@ -7,8 +7,8 @@ import io.netty.handler.logging.LogLevel;
  */
 public class LoggerUtils {
 
-    public static LogLevel convertToNettyLogLevel (org.apache.log4j.lf5.LogLevel logLevel) {
-        switch (logLevel.getLabel()) {
+    public static LogLevel convertToNettyLogLevel (String logLevel) {
+        switch (logLevel) {
             case "FATAL":
                 return LogLevel.ERROR;
             case "ERROR":
@@ -25,7 +25,7 @@ public class LoggerUtils {
                 return LogLevel.DEBUG;
         }
 
-        throw new IllegalArgumentException("unsupported log level: " + logLevel.getLabel());
+        throw new IllegalArgumentException("unsupported log level: " + logLevel);
     }
 
 }
