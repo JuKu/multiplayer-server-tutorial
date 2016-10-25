@@ -15,7 +15,7 @@ public class ServerMain {
     public static void main (String[] args) {
         //configure logger to print all to console
         BasicConfigurator.configure();
-        Logger.getRootLogger().setLevel(Level.INFO);
+        Logger.getRootLogger().setLevel(Level.WARN);
 
         //create and configure new logger
         Logger logger = Logger.getLogger("GameServer");
