@@ -16,6 +16,13 @@
     </properties>
 
     <dependencies>
+        <!-- gameserver common library  -->
+        <dependency>
+            <groupId>de.jukusoft</groupId>
+            <artifactId>gameserver-tutorial-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- netty -->
         <dependency>
             <groupId>io.netty</groupId>
