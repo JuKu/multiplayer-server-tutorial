@@ -4,6 +4,7 @@ import de.jukusoft.gameserver.tutorial.engine.impl.GameServerImpl;
 import de.jukusoft.gameserver.tutorial.engine.IGameServer;
 import de.jukusoft.gameserver.tutorial.engine.netty.NettyTCPNetworkModule;
 import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 /**
@@ -14,9 +15,11 @@ public class ServerMain {
     public static void main (String[] args) {
         //configure logger to print all to console
         BasicConfigurator.configure();
+        Logger.getRootLogger().setLevel(Level.INFO);
 
         //create and configure new logger
         Logger logger = Logger.getLogger("GameServer");
+        logger.setLevel(Level.INFO);
 
         //create and configure new game server
         IGameServer server = new GameServerImpl();

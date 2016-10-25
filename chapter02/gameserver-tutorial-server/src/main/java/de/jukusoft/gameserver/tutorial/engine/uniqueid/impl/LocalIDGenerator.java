@@ -16,7 +16,7 @@ public class LocalIDGenerator implements IDGenerator {
 
     @Override
     public long generateID() {
-        return this.lastID.getAndIncrement();
+        return this.lastID.incrementAndGet();
     }
 
 }

@@ -163,7 +163,7 @@ public class GameServerImpl<T extends NetworkMessage> implements IGameServer<T> 
         //configure network module
         this.networkModule.configure(this.config, this);
 
-        this.logger.info("start game server...");
+        this.logger.info("start game server on port " + this.config.getPort() + "...");
 
         //start network module
         this.networkModule.start();
