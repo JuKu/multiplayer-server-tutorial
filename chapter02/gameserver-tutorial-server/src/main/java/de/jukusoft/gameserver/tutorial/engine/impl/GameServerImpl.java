@@ -161,7 +161,7 @@ public class GameServerImpl<T extends NetworkMessage> implements IGameServer<T> 
         this.logger.info("configure network module now.");
 
         //configure network module
-        this.networkModule.configure(this.config);
+        this.networkModule.configure(this.config, this);
 
         this.logger.info("start game server...");
 

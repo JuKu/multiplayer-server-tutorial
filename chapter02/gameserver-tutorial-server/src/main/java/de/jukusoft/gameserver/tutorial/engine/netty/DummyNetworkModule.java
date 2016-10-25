@@ -6,11 +6,17 @@ import de.jukusoft.gameserver.tutorial.engine.Server;
 import de.jukusoft.gameserver.tutorial.engine.config.ServerConfig;
 import de.jukusoft.gameserver.tutorial.engine.protocol.MessageReceiver;
 import de.jukusoft.gameserver.tutorial.engine.protocol.NetworkMessage;
+import de.jukusoft.gameserver.tutorial.engine.uniqueid.IDGenerator;
 
 /**
  * Created by Justin on 25.10.2016.
  */
 public class DummyNetworkModule<T extends NetworkMessage> implements NetworkModule<T> {
+
+    @Override
+    public void setClientIDGenerator(IDGenerator idGenerator) {
+
+    }
 
     @Override
     public void configure(ServerConfig config, IGameServer<T> server) {

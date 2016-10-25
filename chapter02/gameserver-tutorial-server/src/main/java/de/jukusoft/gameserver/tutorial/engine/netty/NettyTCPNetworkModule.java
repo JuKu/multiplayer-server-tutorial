@@ -5,6 +5,8 @@ import de.jukusoft.gameserver.tutorial.engine.NetworkModule;
 import de.jukusoft.gameserver.tutorial.engine.config.ServerConfig;
 import de.jukusoft.gameserver.tutorial.engine.protocol.MessageReceiver;
 import de.jukusoft.gameserver.tutorial.engine.protocol.NetworkMessage;
+import de.jukusoft.gameserver.tutorial.engine.uniqueid.IDGenerator;
+import de.jukusoft.gameserver.tutorial.engine.uniqueid.impl.LocalIDGenerator;
 import de.jukusoft.gameserver.tutorial.engine.utils.LoggerUtils;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -12,7 +14,9 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import org.apache.log4j.Logger;
 
+import java.net.InetSocketAddress;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -53,6 +57,16 @@ public class NettyTCPNetworkModule<T extends NetworkMessage> implements NetworkM
     protected ServerConfig config = null;
 
     /**
+    * instance of id generator
+    */
+    protected IDGenerator idGenerator = new LocalIDGenerator();
+
+    /**
+    * instance of logger
+    */
+    protected Logger logger = null;
+
+    /**
     * default constructor
      *
      * @param channelOptions channel options
@@ -84,6 +98,11 @@ public class NettyTCPNetworkModule<T extends NetworkMessage> implements NetworkM
     }
 
     @Override
+    public void setClientIDGenerator(IDGenerator idGenerator) {
+        this.idGenerator = idGenerator;
+    }
+
+    @Override
     public void configure(ServerConfig config, IGameServer<T> server) {
         if (this.isConfigured.get()) {
             throw new IllegalStateException("netty network module was already configured.");
@@ -91,6 +110,9 @@ public class NettyTCPNetworkModule<T extends NetworkMessage> implements NetworkM
 
         //save configuration
         this.config = config;
+
+        //save logger
+        this.logger = server.getLogger();
 
         //set flag
         this.isConfigured.set(true);
@@ -159,6 +181,15 @@ public class NettyTCPNetworkModule<T extends NetworkMessage> implements NetworkM
         @Override
         public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
             //new connection opened
+
+            //get host and ip
+            String host = ((InetSocketAddress)ctx.channel().remoteAddress()).getAddress().getHostAddress();
+            int port = ((InetSocketAddress)ctx.channel().remoteAddress()).getPort();
+
+            //generate new clientID
+            long clientID = idGenerator.generateID();
+
+            logger.debug("new client with ID " + clientID + " connected to server, client ip: " + host + ", client port: " + port);
         }
 
     }

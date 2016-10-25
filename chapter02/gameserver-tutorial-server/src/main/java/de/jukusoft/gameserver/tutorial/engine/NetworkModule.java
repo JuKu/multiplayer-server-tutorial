@@ -3,11 +3,19 @@ package de.jukusoft.gameserver.tutorial.engine;
 import de.jukusoft.gameserver.tutorial.engine.config.ServerConfig;
 import de.jukusoft.gameserver.tutorial.engine.protocol.MessageReceiver;
 import de.jukusoft.gameserver.tutorial.engine.protocol.NetworkMessage;
+import de.jukusoft.gameserver.tutorial.engine.uniqueid.IDGenerator;
 
 /**
  * Created by Justin on 25.10.2016.
  */
 public interface NetworkModule<T extends NetworkMessage> {
+
+    /**
+    * set client id generator
+     *
+     * @param idGenerator instance of id generator
+    */
+    public void setClientIDGenerator (IDGenerator idGenerator);
 
     /**
     * configure network module
