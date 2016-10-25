@@ -3,6 +3,7 @@ package de.jukusoft.gameserver.tutorial.engine.netty;
 import de.jukusoft.gameserver.tutorial.engine.IGameServer;
 import de.jukusoft.gameserver.tutorial.engine.NetworkModule;
 import de.jukusoft.gameserver.tutorial.engine.config.ServerConfig;
+import de.jukusoft.gameserver.tutorial.engine.listener.ConnectionListener;
 import de.jukusoft.gameserver.tutorial.engine.protocol.MessageReceiver;
 import de.jukusoft.gameserver.tutorial.engine.protocol.NetworkMessage;
 import de.jukusoft.gameserver.tutorial.engine.uniqueid.IDGenerator;
@@ -65,6 +66,16 @@ public class NettyTCPNetworkModule<T extends NetworkMessage> implements NetworkM
     * instance of logger
     */
     protected Logger logger = null;
+
+    /**
+    * instance of connection listener
+    */
+    protected ConnectionListener connListener = null;
+
+    /**
+    * instance of channel initializer
+    */
+    protected NettyChannelInitializer nettyChannelInitializer = null;
 
     /**
     * default constructor
@@ -162,6 +173,11 @@ public class NettyTCPNetworkModule<T extends NetworkMessage> implements NetworkM
     }
 
     @Override
+    public void setConnectionListener(ConnectionListener listener) {
+        this.connListener = listener;
+    }
+
+    @Override
     public void send(long clientID, NetworkMessage msg) {
 
     }
@@ -176,7 +192,33 @@ public class NettyTCPNetworkModule<T extends NetworkMessage> implements NetworkM
 
     }
 
+    /**
+    * set netty channel initializer
+     *
+     * @param nettyChannelInitializer instance of netty channel initializer
+    */
+    public void setNettyChannelInitializer (NettyChannelInitializer nettyChannelInitializer) {
+        this.nettyChannelInitializer = nettyChannelInitializer;
+    }
+
+    @ChannelHandler.Sharable
+    private final class ChannelConnHandler extends ChannelInboundHandlerAdapter
+    {
+        @Override
+        public void channelActive(ChannelHandlerContext ctx) throws Exception
+        {
+            try {
+                super.channelActive(ctx);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @ChannelHandler.Sharable
     private final class ChannelInitHandler extends ChannelHandlerAdapter {
+
+        protected final ChannelConnHandler connHandler = new ChannelConnHandler();
 
         @Override
         public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
@@ -190,6 +232,23 @@ public class NettyTCPNetworkModule<T extends NetworkMessage> implements NetworkM
             long clientID = idGenerator.generateID();
 
             logger.debug("new client with ID " + clientID + " connected to server, client ip: " + host + ", client port: " + port);
+
+            //add channel connection handler
+            ctx.pipeline().addLast(connHandler);
+
+            //check, if channel initializer exists
+            if (nettyChannelInitializer != null) {
+                //initialize channel
+                nettyChannelInitializer.initChannel(clientID, ctx, ctx.pipeline());
+            } else {
+                logger.warn("[ChannelInitHandler in NettyTCPNetworkModule] no netty channel initializer set.");
+            }
+
+            //initialize channel
+            if (connListener != null) {
+                //call connection listener
+                connListener.connectionOpened(clientID);
+            }
         }
 
     }

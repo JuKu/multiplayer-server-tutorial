@@ -1,6 +1,7 @@
 package de.jukusoft.gameserver.tutorial.engine;
 
 import de.jukusoft.gameserver.tutorial.engine.config.ServerConfig;
+import de.jukusoft.gameserver.tutorial.engine.listener.ConnectionListener;
 import de.jukusoft.gameserver.tutorial.engine.protocol.MessageReceiver;
 import de.jukusoft.gameserver.tutorial.engine.protocol.NetworkMessage;
 import de.jukusoft.gameserver.tutorial.engine.uniqueid.IDGenerator;
@@ -53,5 +54,12 @@ public interface NetworkModule<T extends NetworkMessage> {
     * set network receiver
     */
     public void setNetworkReceiver (MessageReceiver<T> receiver);
+
+    /**
+    * set connection listener
+     *
+     * @param listener connection listener
+    */
+    public void setConnectionListener (ConnectionListener listener);
 
 }

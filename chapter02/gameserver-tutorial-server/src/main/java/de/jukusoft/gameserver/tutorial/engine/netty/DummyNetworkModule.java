@@ -4,6 +4,7 @@ import de.jukusoft.gameserver.tutorial.engine.IGameServer;
 import de.jukusoft.gameserver.tutorial.engine.NetworkModule;
 import de.jukusoft.gameserver.tutorial.engine.Server;
 import de.jukusoft.gameserver.tutorial.engine.config.ServerConfig;
+import de.jukusoft.gameserver.tutorial.engine.listener.ConnectionListener;
 import de.jukusoft.gameserver.tutorial.engine.protocol.MessageReceiver;
 import de.jukusoft.gameserver.tutorial.engine.protocol.NetworkMessage;
 import de.jukusoft.gameserver.tutorial.engine.uniqueid.IDGenerator;
@@ -45,6 +46,11 @@ public class DummyNetworkModule<T extends NetworkMessage> implements NetworkModu
 
     @Override
     public void setNetworkReceiver(MessageReceiver<T> receiver) {
+
+    }
+
+    @Override
+    public void setConnectionListener(ConnectionListener listener) {
 
     }
 
