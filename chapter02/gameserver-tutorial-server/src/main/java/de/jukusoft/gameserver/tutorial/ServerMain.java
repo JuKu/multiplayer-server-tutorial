@@ -42,7 +42,7 @@ public class ServerMain {
             LoggingHandler loggingHandler = new LoggingHandler("Game Server", LogLevel.INFO);
 
             //add logging handler to pipeline
-            pipeline.addLast("logger", loggingHandler);
+            //pipeline.addLast("logger", loggingHandler);
 
             //TODO: add codec
         });
