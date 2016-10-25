@@ -231,7 +231,7 @@ public class NettyTCPNetworkModule<T extends NetworkMessage> implements NetworkM
             //generate new clientID
             long clientID = idGenerator.generateID();
 
-            logger.debug("new client with ID " + clientID + " connected to server, client ip: " + host + ", client port: " + port);
+            logger.info("new client with ID " + clientID + " connected to server, client ip: " + host + ", client port: " + port);
 
             //add channel connection handler
             ctx.pipeline().addLast(connHandler);
