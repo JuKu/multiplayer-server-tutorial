@@ -14,7 +14,7 @@ public interface NetworkModule<T extends NetworkMessage> {
      *
      * @param config instance of server configuration
     */
-    public void configure (ServerConfig config);
+    public void configure (ServerConfig config, IGameServer<T> server);
 
     /**
     * start network module

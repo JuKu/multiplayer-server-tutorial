@@ -19,6 +19,10 @@ public class ServerConfig {
     protected int nOfWorkerThreads = GameConstants.DEFAULT_WORKER_THREADS;
 
     public void setPort(int port) {
+        if (port <= 0) {
+            throw new IllegalArgumentException("port number has to be greater than 0.");
+        }
+
         //set port
         this.port = port;
     }
@@ -28,6 +32,10 @@ public class ServerConfig {
     }
 
     public void setBossThreads(int nOfBossThreads) {
+        if (nOfBossThreads <= 0) {
+            throw new IllegalArgumentException("number of boss threads cannot be 0 or lesser.");
+        }
+
         this.nOfBossThreads = nOfBossThreads;
     }
 
@@ -36,6 +44,10 @@ public class ServerConfig {
     }
 
     public void setWorkerThreads(int nOfWorkerThreads) {
+        if (nOfBossThreads <= 0) {
+            throw new IllegalArgumentException("number of worker threads cannot be 0 or lesser.");
+        }
+
         this.nOfWorkerThreads = nOfWorkerThreads;
     }
 

@@ -13,7 +13,7 @@ import de.jukusoft.gameserver.tutorial.engine.protocol.NetworkMessage;
 public class DummyNetworkModule<T extends NetworkMessage> implements NetworkModule<T> {
 
     @Override
-    public void configure(ServerConfig config) {
+    public void configure(ServerConfig config, IGameServer<T> server) {
 
     }
 
