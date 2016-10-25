@@ -1,7 +1,7 @@
 package de.jukusoft.gameserver.tutorial;
 
-import de.jukusoft.gameserver.tutorial.server.IGameServer;
-import de.jukusoft.gameserver.tutorial.server.impl.GameServerImpl;
+import de.jukusoft.gameserver.tutorial.engine.IGameServer;
+import de.jukusoft.gameserver.tutorial.engine.GameServerImpl;
 import org.apache.log4j.BasicConfigurator;
 
 /**

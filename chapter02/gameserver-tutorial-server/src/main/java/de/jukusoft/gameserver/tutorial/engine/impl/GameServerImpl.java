@@ -1,7 +1,7 @@
-package de.jukusoft.gameserver.tutorial.server.impl;
+package de.jukusoft.gameserver.tutorial.engine.impl;
 
 import de.jukusoft.gameserver.tutorial.common.GameConstants;
-import de.jukusoft.gameserver.tutorial.server.IGameServer;
+import de.jukusoft.gameserver.tutorial.engine.IGameServer;
 
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.atomic.AtomicBoolean;

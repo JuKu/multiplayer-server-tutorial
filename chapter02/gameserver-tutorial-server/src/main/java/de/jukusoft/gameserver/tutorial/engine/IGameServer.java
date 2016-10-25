@@ -1,4 +1,4 @@
-package de.jukusoft.gameserver.tutorial.server;
+package de.jukusoft.gameserver.tutorial.engine;
 
 /**
  * interface for game servers
