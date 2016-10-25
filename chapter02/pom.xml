@@ -21,6 +21,9 @@
 
         <!-- netty version -->
         <netty.version>4.1.6.Final</netty.version>
+
+        <!-- log4j version -->
+        <log4j.version>1.2.17</log4j.version>
     </properties>
 
     <build>
